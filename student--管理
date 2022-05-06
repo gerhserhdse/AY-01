@@ -1,0 +1,236 @@
+package 集合;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class student1{
+    //学号
+    private String   sid;
+    //姓名
+    private  String name;
+    //年龄
+    private  String age;
+
+    //地址
+    private  String  address;
+    public student1(){
+    }
+    public student1(String sid,String name,String age,String address){
+        this.sid=sid;
+        this.name=name;
+        this.age=age;
+        this.address=address;
+    }
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
+    public String getSid() {
+        return sid;
+    }
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+}
+public class Student__管理系统 {
+
+    public static void main(String[] args) {
+        System.out.println("--------欢迎进入学生管理系统--------");
+        Boolean flag=true ;
+        ArrayList<student1> arr=new ArrayList<>();
+        Scanner in=new Scanner(System.in);
+        while(flag){
+            System.out.println("1.添加学生");
+            System.out.println("2.删除学生");
+            System.out.println("3.修改学生");
+            System.out.println("4.查看所有学生");
+            System.out.println("5.退出");
+            System.out.println("请输入您的选择:>");
+            int a=in.nextInt();
+  switch (a){
+      case 1:
+          System.out.println("添加学生");
+          addstudent(arr);
+
+          break;
+      case 2:
+          System.out.println("删除学生");
+          deletestudent(arr);
+          break;
+      case 3:
+          System.out.println("修改学生");
+          setstudent(arr);
+          break;
+      case 4:
+
+          System.out.println("查看所有学生");
+          findstudent(arr);
+          break;
+      case 5:
+          System.out.println("谢谢使用");
+          flag=false;
+
+  }
+        }
+
+    }
+    //定义一个方法:> 添加学生类
+/*public static  void addstudent(ArrayList<student1> arr){
+    Scanner sc=new Scanner(System.in);
+    System.out.println("请输入 学生学号:>");
+    String sid=sc.next();
+    System.out.println("请输入学生姓名:>");
+    String name=sc.next();
+    System.out.println("请输入学生年龄:>");
+    String age=sc.next();
+    System.out.println("请输入学生地址:>");
+    String address=sc.next();
+
+    //穿件学生对象,把键盘录入的数据赋值给学生对象的成员变量
+    student1 s1=new student1();
+
+    s1.setSid(sid);
+    s1.setName(name);
+    s1.setAge(age);
+    s1.setAddress(address);
+    //玩集合中添加学生对象
+   arr.add(s1);
+    System.out.println("添加成功");
+    System.out.println("学号\t\t姓名\t\t年龄\t\t地址");
+    System.out.println(s1.getSid()+"\t\t"+s1.getName()+"\t\t"+s1.getAge()+"\t\t"+s1.getAddress());
+}*/
+    public static  void addstudent(ArrayList<student1> arr){
+        Scanner sc=new Scanner(System.in);
+        String sid;
+        while (true){
+            System.out.println("请输入 学生学号:>");
+             sid=sc.next();
+            boolean flag=isused(arr,sid);
+            if(flag){
+                System.out.println("您输入的学号已被使用,请重新输入");
+            }else{
+                break;
+            }
+        }
+
+        System.out.println("请输入学生姓名:>");
+        String name=sc.next();
+        System.out.println("请输入学生年龄:>");
+        String age=sc.next();
+        System.out.println("请输入学生地址:>");
+        String address=sc.next();
+
+        //穿件学生对象,把键盘录入的数据赋值给学生对象的成员变量
+        student1 s1=new student1();
+
+        s1.setSid(sid);
+        s1.setName(name);
+        s1.setAge(age);
+        s1.setAddress(address);
+        //玩集合中添加学生对象
+        arr.add(s1);
+        System.out.println("添加成功");
+        System.out.println("学号\t\t姓名\t\t年龄\t\t地址");
+        System.out.println(s1.getSid()+"\t\t"+s1.getName()+"\t\t"+s1.getAge()+"\t\t"+s1.getAddress());
+    }
+public  static boolean isused(ArrayList<student1>arr, String sid){
+        boolean flag=false;
+    for (int i = 0; i <arr.size() ; i++) {
+        student1 s=arr.get(i);
+        if(s.getSid().equals(sid)){
+            flag=true;
+            break;
+        }
+    }
+    return flag;
+}
+    //定义一个方法:>删除学生类
+public  static  void deletestudent(ArrayList<student1>arr){
+    System.out.println("请输入您要删除学生的学号");
+    Scanner in=new Scanner(System.in);
+    String sid=in.next();
+    int index=-1;
+    for (int i = 0; i <arr.size() ; i++) {
+        student1 s=arr.get(i);
+        if(s.getSid().equals(sid)){
+            index=i;
+    break;
+        }
+
+    }
+    if(index==-1){
+        System.out.println("信息不存在,请重新输入!");
+    }else{
+        arr.remove(index);
+        System.out.println("删除成功");
+    }
+
+}
+
+    //定义学生类:>查看学生类
+public static  void findstudent(ArrayList<student1>arr){
+    System.out.println("学号\t\t姓名\t\t年龄\t\t地址");
+    for (int i = 0; i <arr.size() ; i++) {
+        student1 s=arr.get(i);
+        System.out.println(s.getSid()+"\t\t"+s.getName()+"\t\t"+s.getAge()+"\t\t"+s.getAddress());
+    }
+}
+    //定义一个方法:>修改学生类
+public static  void setstudent(ArrayList<student1>arr){
+        Scanner in=new Scanner(System.in);
+    System.out.println("请输入修改学生的学号");
+      String sid=in.next();
+    System.out.println("请输入学生姓名:>");
+    String name=in.next();
+    System.out.println("请输入学生年龄:>");
+    String age=in.next();
+    System.out.println("请输入学生地址:>");
+    String address=in.next();
+    student1 s1=new student1();
+
+    s1.setSid(sid);
+    s1.setName(name);
+    s1.setAge(age);
+    s1.setAddress(address);
+    int index=-1;
+    for (int i = 0; i < arr.size(); i++) {
+       student1  s=arr.get(i);
+       if(s.getSid().equals(sid)){
+           index=i;
+
+           break;
+       }
+
+    }
+    if(index==-1){
+        System.out.println("您输入的信息不存在,请重新输入");
+    }else{
+        arr.remove(index);
+        System.out.println("删除成功");
+    }
+}
+}
+
+
