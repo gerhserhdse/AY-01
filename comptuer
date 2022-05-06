@@ -1,0 +1,175 @@
+package First.Game;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class television {
+    Scanner in=new Scanner(System.in);
+    int numbering;//编号
+    String Model;//型号
+    String factory;
+    int len;
+    boolean flag;
+    int width;
+    int weight;
+    public void setNumbering()
+    {
+        Random a=new Random();
+        numbering=a.nextInt(900)+100;
+        System.out.println("商品编号是>:"+numbering);
+    }
+    public  void setModel(String Model)
+    {
+        this.Model=Model;
+
+    }
+    public void setFactory(String factory){
+        this.factory=factory;
+    }
+    public  void  setSize(){
+        System.out.println("长度是>:"+len);
+        System.out.println("宽度是>:"+width);
+    }
+    public  void setWeight()
+    {
+        System.out.println("重量是>:"+weight+"斤");
+    }
+    public  void ti()
+    {
+
+        String yl=in.next();
+        if(yl.equals("是")){
+            yin();
+        }
+        else
+        {
+            System.out.println("祝您使用愉快");
+        }
+        flag=false;
+
+    }
+    public  void setState()
+    {
+        System.out.println("已进入电视,请选择频道>:");
+        System.out.println("############################");
+        System.out.println("##1,娱乐频道   2. 经济频道 3.少儿频道  4.军事频道");
+        System.out.println("############################");
+
+        int xz=in.nextInt();
+        switch (xz)
+        {
+            case 1:
+                System.out.println("已进入娱乐频道,请问是否调音量");
+                ti();
+                break;
+            case 2:
+                System.out.println("已进入经济频道,请问是否调音量");
+                ti();
+                break;
+            case 3:
+                System.out.println("已进入少儿频道,请问是否调音量");
+                ti();
+                break;
+            case 4:
+                System.out.println("已进入军事频道,请问是否调音量");
+                ti();
+                break;
+            default:
+                System.out.println("亲,小爱不理解您的选择呢");
+                System.out.println("电视退出");
+                flag=false;
+                break;
+
+        }
+
+    }
+    public void yin() {
+        System.out.println("请选择提高音量还是降低音量");
+        String volume = in.next();
+        if (volume.equals("提高音量")) {
+            System.out.println("音量以提高一档,是否继续提高");
+            volume = in.next();
+            if (volume.equals("是")) {
+                System.out.println("音量已经最大,无法提高,祝您使用愉快");
+                System.exit(0);//系统退出指令,括号内返回0 跟C语言 return0一样退出系统
+                flag=false;
+
+            }
+
+        }else  {
+            System.out.println("音量以降低一档,是否继续下降");
+            volume = in.next();
+            if (volume.equals("是")) {
+                System.out.println("音量已经最低,无法下降,祝您使用愉快");
+                System.exit(0);//系统退出指令,括号内返回0 跟C语言 return0一样退出系统
+                flag=false;
+            }
+        }
+    }
+}
+class texttelevision {
+    public static void main(String[] args) {
+        television tele=new television();
+        tele.weight=353;
+        tele.width=34;
+        tele.len=45;
+        Scanner in=new Scanner(System.in);
+        boolean flag=true;
+        int ca;
+
+        System.out.println("是否开机>:");
+        String c=in.next();
+        if(c.equals("是"))
+        {
+            System.out.println("欢迎使用老人牌电视,请选择>;");
+            while(flag)
+            {
+                System.out.println("1,电视机了解     2,直接使用");
+                ca=in .nextInt();
+                switch (ca){
+                    case  1:
+                        tele.setNumbering();
+                        tele.setModel("商品型号是>:ASDJ214523562342");
+                        tele.setFactory("生产厂家是>:小米科技");
+                        tele.setWeight();
+                        tele.setSize();
+                        System.out.println("您已了解电视机,是否使用该电视机");
+            
+                        c=in.next();
+                        if(c.equals("是")){
+                            tele.setState();
+                        }else{
+                            System.out.println("很遗憾,电视已关机");
+                            flag=false;
+                            break;
+                        }
+
+                    case 2:
+                        tele.setState();
+                        flag=false;
+                        break;
+                    default:
+                        System.out.println("输入错误,是否继续输入>:");
+                        String a=in.next();
+                        if(a.equals("是"))
+                        {
+                            System.out.println("请选择>:");
+                            flag=true;
+                        }else{
+                            System.out.println("很遗憾,电脑已关机");
+                            flag=false;
+                        }
+                        break;
+                }
+            }
+
+        }
+        else
+        {
+            System.out.println("输入错误,电视已关机");
+            flag=false;
+        }
+    }
+}
+
+
