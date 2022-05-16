@@ -1,0 +1,193 @@
+package 线性表链表;
+
+//单链表节点类，T是数据元素的类型
+
+import java.util.LinkedList;
+
+public class Node<Integer> {
+    public Integer data;//数据域，存储数据元素
+    public Node<Integer> next;//地址域，引用后继结点
+
+    public Node(Integer data, Node<Integer> next) {//由制定的两个域来构造节点
+        this.data = data;
+        this.next = next;
+    }
+
+    public Node() {//空构造
+        this(null, null);
+    }
+
+    public String toString() {
+        return this.data.toString();//返回节点数据域的描述字符串
+    }
+
+
+}
+
+
+
+//单链表类
+class 链表__SinglyLinkList<Integer> extends LinkedList<Integer> {
+    public Node<Integer> head;//单链表的头指针，指向头结点
+    public 链表__SinglyLinkList() {//构造空单链表
+        head=new Node<Integer>() ;//创建头结点，data和next 的值均为null；
+
+    }
+    public 链表__SinglyLinkList(Integer[] values){//构造单链表，由数组提供元素
+        this();//创建只有头结点的的单链表
+        Node<Integer>rear=this.head;//rear指向单链表
+        for (int i = 0; i <values.length ; i++) {
+            rear.next=new Node<Integer>(values[i],null );
+            //尾插法  创建节点链接如rear结点之后
+            rear=rear.next;//rear 指向新的尾结点
+        }
+    }
+    //实现借口方法
+    public  Integer get (int i){//返回元素ai,若i越界，返回null
+        int j=0;
+        Node<Integer>p=this.head.next;
+        //遍历单链表 ，寻找ai
+        for (; p!=null&&j<i;j++){
+            p=p.next;
+        }
+        //若p指向ai,返回其data值
+        return (i>=0&&p!=null)?p.data:null;
+    }//    TODO   方法未完善
+    //设置值
+    public Integer set(int i, Integer t){
+     //设置元素ai的值，即设置其data域的值为t
+        int j=0;
+        Node<Integer> p=this.head.next;
+        for (i= 0;p!=null&& j < i; j++) {//遍历单链表 ，寻找结点ai
+            p=p.next;
+        }
+        if(i>0&&p!=null){
+            p.data=t;//讲ai的data设置为t
+
+        }
+        return t;
+    }
+
+    public  int insert(Integer t){ return  this.insert(this.size(),t);}
+
+   // public int insert(int i,T t){return i;}
+    //删除元素ai
+    public Integer remove(int i){
+        int  j=0;
+        Node<Integer> p=this.head.next;
+        while (p.next!=null&&j<i){ //寻找ai-1结点
+            p=p.next;
+            j++;
+        }
+        if (p.next!=null&&j==i){//ai结点存在
+            Integer old=p.next.data;//保存待删除结点的数据域
+            p.next=p.next.next;//删除结点，包括开始，中间和尾结点删除
+            return old;  ////返回已删除结点的数据域
+        }else
+        {
+            return null;   //i越界，返回null
+        }
+    }
+    //判断单链表是否包含key元素
+    public  boolean contain(Integer key){
+        Node p=this.head.next;
+        for (;p!=null;p=p.next){
+            if(p.data.equals(key)){
+                return  true;
+            }
+        }
+        return false;
+    }
+    //在单链表中查找首次出现的与key相等的元素，返回元素位置，若不存在返回-1
+    public  int indexodO(Integer key){
+        int i=0;
+        Node p=this.head.next;
+        for (;p!=null;p=p.next){
+            if(p.data.equals(key)){
+                return i;
+            }
+            i++;
+        }
+        return  -1;
+    }
+    //求表长
+    public  int size(){
+        int n=0;
+        Node p=this.head.next;
+        while (p!=null){
+            n++;
+            p=p.next;
+        }
+        return n;
+    }
+    //清空链表
+    public  void clear(){
+        this.head.next=null;
+    }
+    //判断单链表是否为空
+    public boolean isEmpty(){
+        return this.head.next==null;
+    }
+    //遍历单链表
+    public  void printList(){
+        Node p=this.head.next;
+        while (p!=null){
+            //输出节点的数据域
+            System.out.println(p.data);
+//指针后移一个结点
+            p=p.next;
+        }
+    }
+
+    //单链表的插入
+    //在ai前插入元素t，若插入成功，返回I若不成功，返回-1；
+    public  int insert(int i,Integer t){
+        int j=0;
+        if(t==null)throw  new NullPointerException("不能插入空对象");
+        Node<Integer> p=this.head;
+        while (p.next!=null&&j<i){//寻找ai-1结点
+            p=p.next;
+            j++;
+
+        }
+        if(p!=null&&j==i){//找到ai-1节点，
+            Node<Integer>s=new Node<Integer>(t,p.next);//建立新的结点，数据域为元素t，地址域为p.next
+            p.next=s;//插入成功后插入新的结点
+            return i;//插入成功，返回i
+        }else
+        {
+            return  -1;//插入不成功，返回-1
+        }
+    }
+    ///单链表的就地逆置
+    public  void reserve(链表__SinglyLinkList list){
+        Node p,q,r;
+        p=list.head.next;//p指向头结点
+        //当是单链表只有一个结点时或者单链表为空
+        if(p==null ||p.next==null){
+            return;
+        }
+        q=p;
+        p=p.next;
+        q.next=null;
+        while (p!=null){
+            r=p.next;
+            p.next=q;
+            q=p;
+            p=r;
+        }
+        list.head.next=q;
+    }
+}
+
+class  text1{
+    public static void main(String[] args) {
+        Integer a[]={12,54,23,76};
+        链表__SinglyLinkList list=new 链表__SinglyLinkList(a);
+        System.out.println("逆置前：》");
+        list.printList();
+        list.reserve(list);
+        System.out.println("\n逆置后：》");
+        list.printList();
+    }
+}
