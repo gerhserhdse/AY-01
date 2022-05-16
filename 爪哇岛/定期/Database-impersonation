@@ -1,0 +1,91 @@
+package 主要;
+/*
+模拟数据库引擎
+ */
+import java.util.Scanner;
+/*
+用户界面
+输入用户名输出数据
+输入密码
+输入sql语句
+
+ */
+public class database {
+    public static void main(String[] args) {
+        Scanner in=new Scanner(System.in);
+        System.out.println("请输入用户名:>");
+        String usename=in.next();
+        System.out.println("请输入密码:>");
+        String password=in.next();
+        in.nextLine();
+        System.out.println("请输入SQL语句>:");
+        String sqll=in.nextLine();
+        //System.out.println(sqll);
+        Control control=new Control();
+        try{
+            String  [][]res=control.getdata(usename,password,sqll);
+            if(res.length==0)
+            {
+                System.out.println("没有数据!");
+                return ;
+
+            }
+            System.out.println("搜索到的数据是:>");
+            for (String []r:res
+                 ) {
+                for (String s:r
+                     ) {
+                    System.out.println(s+"\t");
+                }
+                System.out.println();
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+}
+/*
+控制界面
+链接数据库
+ */
+class   Control{
+    String [][]getdata(String username,String password,String  sql)throws Exception
+    {
+        Dbconn dbconn=new Dbconn(username,password);
+        if(dbconn.status){
+            //TODO  1 未抛出异常
+        }
+        else {
+            throw new Exception("账号密码错误");
+        }
+        return new String [][]{{"123"}};
+    }
+
+}
+/*
+数据库
+ */
+class Dbconn
+{
+    boolean status =false;
+    public Dbconn(String username ,String password) {
+      status=  User .getUser (username,password);
+    }
+}
+class   User{
+    private static String [][] userArr ={{"张as","1243"},{"李四","232"}};
+   public static boolean getUser(String un,String pw){
+
+       for (String []user:userArr
+            ) {
+           if(un.equals(user[0])&&pw.equals(user[0])){
+               return  true;
+           }
+
+       }
+       return  false;
+   }
+
+
+}
