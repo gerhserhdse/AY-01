@@ -1,0 +1,48 @@
+
+
+////函数二分查找########################################################
+#include<stdio.h>
+	//本质上是一个指针
+int binary(int arr[],int k , int r )
+{
+        //sz若在此处而不是在main函数则sz=1;因为传过来的只是首个元素的地址,大小为4  arr[0] ,是int数据类型,大小也为四
+	int left=0;
+	int rigth =r-1;
+	while(left<=rigth)
+	{
+
+		int mid=(left+rigth)/2;
+		if(arr[mid]<k)
+		{
+			left=mid+1;
+		}
+		else if(arr[mid]>k){
+			rigth=mid-1;
+		}
+		else{
+			return mid;
+		}
+	}
+return -1;
+
+}
+int  main()
+{
+	int arr[]={1,2,3,4,5,6,7,8,9};
+	int sz=sizeof(arr)/sizeof(arr[0]);
+	int k=7;	//此处 传过去的是数组arr首元素的地址,而非整个数组
+	int ret=binary(arr,k,sz);
+	if(ret==-1)
+	{
+
+		printf("找不到指定的数值\n");
+
+	}
+	else
+	{
+
+		printf("找到了 下标是>:%d\n",ret);
+	}
+	return 0;
+}
+
