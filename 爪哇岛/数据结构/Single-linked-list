@@ -42,7 +42,7 @@ class 链表__SinglyLinkList<Integer> extends LinkedList<Integer> {
             rear=rear.next;//rear 指向新的尾结点
         }
     }
-    //实现借口方法
+    //实现接口方法
     public  Integer get (int i){//返回元素ai,若i越界，返回null
         int j=0;
         Node<Integer>p=this.head.next;
