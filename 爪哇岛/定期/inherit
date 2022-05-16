@@ -1,0 +1,40 @@
+package First.Game.cm.接口继承;
+
+abstract class Goods {    //abstract是接口
+    double price;
+    String name;
+    String Gid;
+
+}
+class  Electronics extends Goods{    //extends是继承
+
+}
+class Fruits extends Goods{
+
+}
+class Notebook extends Electronics{
+
+    public Notebook(String Gid, String name, double price){
+
+
+     this.Gid=Gid;
+
+     this.price=price;
+     this.name=name;
+    }
+}
+class Phone extends Electronics{
+
+    public Phone(String Gid,String name, double price){
+        this.price=price;
+       this.name=name;
+        this.Gid=Gid;
+    }
+}
+class Apple extends Fruits{
+    public Apple(String Gid,String name, double price){
+        this.price=price;
+         this.name=name;
+         this.Gid=Gid;
+    }
+}
