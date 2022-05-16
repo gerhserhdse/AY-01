@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+/*
+需求:>
+输入两个时间,求这两个时间的时间差
+思路:>
+1定义两个变量存储输入的时间
+2将小时分钟转换为相同的进制
+3定义一个变量存储两数差
+4输出小时和分钟
+*/
+
+int main()
+{
+    int  hour1,min1;
+
+    printf("请输入第一个时间:>");
+    scanf("%d  %d",&hour1,&min1);
+     int hour2=0,min2=0 ;
+    printf("请输入第二个时间:>");
+    scanf("%d  %d",&hour2,&min2);
+    int t1=hour1*60+min1;
+    int t2=hour2*60+min2;
+    int t=t2-t1;
+    if(t>0)
+    {
+    		printf("两时间相隔%d时%d分",t/60,t%60);
+    }
+    else
+    {
+    	t=-t;
+    	printf("两时间相隔%d时%d分(负的)",t/60,t%60);
+    }
+    return 0;
+
+}
