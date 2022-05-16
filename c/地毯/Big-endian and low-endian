@@ -1,0 +1,32 @@
+
+/**
+*敲一个小程序/代码测试电脑是小端还是大端
+*/
+#include<stdio.h>
+int check_sys()
+{
+    int a=1;
+
+  //  char *p=(char *)&a;
+    //返回1 小端
+    //返回0  大端
+   // return *p;
+    //也可以
+
+    return  *(char*)&a;
+}
+int main ()
+{
+
+    int a=1;
+    char *  p=(char *) &a;
+    if(*p==1)
+    int res=check_sys();
+    if(res==1)
+    {
+        printf("小端\n");
+    }
+    else{
+         printf("大端\n");
+    }
+}
