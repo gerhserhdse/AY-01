@@ -1,0 +1,270 @@
+main文件里的
+
+
+
+#include<string.h>
+#include"game.h"
+void menu()
+{
+printf("########################\n");
+printf("####1,三子棋######0.退出游戏####\n");
+printf("########################\n");
+}
+void  game()
+{
+char  ret=0;
+char  board[ROW][COL]={0};
+//初始化棋盘
+Initbow(board,ROW,COL);
+//打印棋盘
+displaybow(board,ROW,COL);
+//下棋
+while(1)
+{
+	//玩家下棋
+	playermove(board,ROW,COL);
+	displaybow(board,ROW,COL);
+	//判断玩家赢
+	ret =Iswin(board,ROW,COL);
+	if(ret !='C')
+	{
+		break;
+	}
+	//电脑下棋
+	computer(board,ROW,COL);
+	displaybow(board,ROW,COL);
+	//判断电脑赢
+	ret =Iswin(board,ROW,COL);
+	if(ret!='C')
+	{
+		break;
+	}
+}
+if(ret=='*')
+{
+	printf("玩家赢\n");
+}
+else if(ret='#')
+{
+	printf("电脑赢\n");
+}
+else
+	printf("平局\n");
+ }
+void text()
+{
+//	 char  flag[9]={0};
+int input=0;
+srand((unsigned int)time (NULL));
+     menu();
+do{
+
+	again:
+	printf("请选择>:");
+	scanf("%d",&input);
+	switch(input)
+{
+case 1:
+	game();
+	break;
+case 0:
+        printf("退出游戏!");
+	break ;
+default :
+	printf("输入错误,请重新输入>:\n");
+
+//		scanf("%s",flag);             //使用strcmp要调用string头文件
+//		if(strcmp(flag,"是")==0)//goto跳转语句,如果输入的字是  是的话就走代码块,不是就走else那块
+//		{
+//			goto again;
+//		}
+break;
+}
+}while(input!=0);
+}
+int main()
+{
+text();
+return 0;
+}
+
+
+
+
+
+
+
+game.h头文件
+#define JIANFA_H_INCLUDED#define  COL 3
+#define   ROW 3#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+//声明
+void  Initbow(char board[ROW][COL],int row,int col);
+void  displaybow(char board[ROW][COL],int row,int col);
+void  playermove(char board[ROW][COL],int row,int col);
+void  computer(char board[ROW][COL],int row,int col);
+/告诉我们四种状态玩家赢        
+   -'*'电脑赢         
+     -'#'平局           
+        -'Q'继续          
+            -'C'*/
+char Iswin(char board[ROW][COL],int row,int col);
+
+
+
+
+
+
+
+
+
+
+
+
+game文件里
+
+
+#include"game.h"
+//初始化棋盘
+void  Initbow(char board[ROW][COL],int row,int col)
+
+{
+ int i=0;
+ int j=0;
+ for (i=0;i<row;i++)
+ {
+  for(j=0;j<col;j++)
+  {
+   board[i][j]=' ';
+  }
+ }
+}
+
+//打印棋盘
+void  displaybow(char board[ROW][COL],int row,int col)
+{
+     int i=0;
+
+     for(i=0;i<row;i++)
+     {
+       int j=0;
+      for (j=0;j<col;j++){
+ //打印1行数据        数据|数据|数据
+      printf(" %c",board[i][j]);
+      if(j<col-1){
+  printf(" |");
+
+      }
+      printf("\n");
+      //打印分割行
+ if(i<row-1)
+ {
+  for(j=0;j<col;j++)
+  {
+   printf("---");
+   if(j<col-1)
+    printf("|");
+  }
+  printf("\n");
+ }
+
+     }
+}
+//下棋
+void  playermove(char board[ROW][COL],int row,int col)
+{
+ int x=0;
+ int y=0;
+ printf("玩家下棋:>\n");
+ while(1)
+ {
+  printf("请输入要下的坐标:>\n");
+ scanf("%d %d",&x,&y);
+ if(x>=1&&y<=row &&y>=1&&y<=col)
+ {
+  if(board[x-1][y-1]==' ')
+  {
+   board[x-1][y-1]='*';
+   break;
+  }
+  else
+  {
+   printf("该坐标已经被占用!\n");
+  }
+ }
+ else
+ {
+  printf("输入错误,请重新输入!\n");
+ }
+ }
+}
+void computer(char board[ROW][COL],int row,int col)
+{
+ int x=0;
+ int y=0;
+ printf("电脑下棋:>\n");
+
+  while (1)
+  {
+   x=rand()%row;//规定了随机数范围是0-row
+   y=rand()%col;
+   if(board[x-1][y-1]==' ')
+  {
+   board[x-1][y-1]='#';
+   break;
+  }
+  }
+}
+//返回0,表示没满
+//返回1表示满了
+int  Isfull(char board[ROW][COL],int row,int col)
+{
+ int i=0;
+ int j=0;
+ for(i=0;i<row;i++)
+ {
+  for(j=0;j<col;j++)
+  {
+   if(board[i][j]==' ')
+   {
+    return 0;//没满
+   }
+  }
+ }
+ return 1;
+}
+char Iswin(char board[ROW][COL],int row,int col)
+{
+ int i=0;
+ //横三行
+ for(i=0;i<row;i++)
+ {
+  if(board[i][0]==board[i][1]&&board[i][1]==board[i][2]&&board[i][1]!=' ')
+  {
+   return  board[i][1];
+  }
+ }
+ //竖三列
+ for(i=0;i<col;i++)
+ {
+  if(board[0][i]==board[1][i]&&board[1][i]==board[2][i]&&board[1][i]!=' ')
+  {
+   return  board[0][i];
+  }
+ }
+ //两对角线
+ if(board[0][0]==board[1][1]&&board[1][1]==board[2][2]&&board[1][1]!=' ')
+  {
+   return  board[0][0];
+  }
+ if(board[2][0]==board[1][1]&&board[1][1]==board[0][2]&&board[1][1]!=' ')
+  {
+   return  board[0][2];
+  }
+ if(1==Isfull(board,ROW,COL))
+ {
+  return  'Q';
+ }
+ return  'C';
+}
