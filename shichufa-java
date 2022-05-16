@@ -1,0 +1,44 @@
+
+
+
+/*需求:>
+使用试除法查询100到200之间的素数,并输出
+思路:>
+1  遍历100到200
+2  从2开始到200遍历  
+3如果i%j==0,就跳出
+4查找是否有i==j,如果有就输出i
+5 定义一个count进行数100到200之间有多少个素数 当i==j的时候count ++
+6输出count
+*/
+#include<math.h >
+#include<stdio.h>
+int main()
+{
+	int i=0;
+	int count=0 ;
+	for(i=100;i<200;i++)//if(i=100;i<sqrt(i);i++)  也可以  for(i=100;i<200;i+2)
+	{
+        //sqrt(100)是对100进行开方
+		//判断i是否为素数
+		//素数判断规则
+		//试除法
+		int j=0;
+		  for(j=2;j<i;j++)
+		  {
+		  	if(i%j==0)
+		  	{
+		  		break;
+
+			  }
+		   }
+		    if(j==i)//if(j>sqrt(i))
+		    {
+		    	count ++;
+		    	printf  ("%d\t",i);
+			}
+	}
+	printf("\n%d",count);
+	return 0;
+ }
+
