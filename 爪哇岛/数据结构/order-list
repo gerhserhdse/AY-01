@@ -1,0 +1,138 @@
+package cn.conm;
+
+// 顺序表的元素类型 int
+public class MyArrayList {
+    // 属性是什么
+
+    private int[] array;
+    private int size;//记录表有多少数据
+
+    public MyArrayList() {
+        //申请空间
+        array = new int[2];
+        //初始化数据个数
+        size = 0;
+    }//一下都是增元素
+
+    public void pushBack(int elemt) {
+        ensureCapacity();
+        array[size++] = elemt;
+    }
+
+    //在表头家元素'
+    public void pushFtront(int elemt) {
+        ensureCapacity();
+        for (int i = size; i >= 1; i--) {
+            array[i] = array[i - 1];
+        }
+        array[0] = elemt;
+        size++;
+    }
+
+    //指定位置插入元素
+    public void insert(int index, int elemt) {
+        if (index < 0 || index > size) {
+            System.out.println("下标异常");
+            return;
+        }
+        ensureCapacity();
+        for (int i = size - 1; i >= index; i--) {
+            array[i + 1] = array[i];
+
+        }
+        array[index] = elemt;
+        size++;
+    }
+
+    //若空间不够,则扩容
+    private void ensureCapacity() {
+        if (size < array.length) {
+            return;
+        }
+        int newCapavity = array.length * 2;
+        int[] Arrary = new int[newCapavity];
+        for (int i = 0; i < size; i++) {
+            Arrary[i] = array[i];
+        }
+        array = Arrary;
+    }
+
+    //删
+    public void popBack() {
+        if (size <= 0) {
+            System.out.println("顺序表为空");
+            return;
+        }
+        for (int i = 0; i < size; i++) {
+            array[i] = array[i + 1];
+        }
+
+        array[--size] = 0;
+    }
+
+    //
+    public void popFront() {
+        if (size <= 0) {
+            System.out.println("顺序表为空");
+        }
+        for (int i = 0; i < size - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        array[--size] = 0;
+    }
+
+    public void earse(int index) {
+        if (size <= 0) {
+            System.out.println("顺序表为空");
+        }
+        if (index < 0 || index > size) {
+            System.out.println("小白哦越界");
+            return;
+        }
+        for (int i = index + 1; i < size; i++) {
+            array[i - 1] = array[i];
+        }
+        array[--size] = 0;
+    }
+
+    //打印
+    public void print() {
+        System.out.println("打印顺序表:当前容量:" + array.length);
+        for (int i = 0; i < size; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+    }
+
+    //测试'
+    public static void main(String[] args) {
+        MyArrayList list = new MyArrayList();
+        list.print();//无
+        list.pushBack(1);
+        list.pushBack(2);
+        list.pushBack(3);
+        list.print();//1 23
+        list.pushFtront(10);
+        list.pushFtront(20);
+        list.pushFtront(30);
+        list.print();
+        list.insert(3, 100);
+        list.print();
+        list.insert(20, 100);
+
+        list.earse(2);
+        list.earse(2);
+        list.print();
+        list.popFront();
+        list.popFront();
+
+        list.popBack();
+        list.popBack();
+        list.popBack();
+        list.print();
+        list.popBack();
+
+
+    }
+}
+
