@@ -1,0 +1,45 @@
+package 数据结构.zhan.应用;
+
+import 数据结构.zhan.LinkedeQueue链式队列;
+
+public class DancingPather<Dancer> {
+    public  void  match (LinkedeQueue链式队列<Dancer>Q1,LinkedeQueue链式队列<Dancer> Q2,int n){
+        //同时读取Q1和Q2的内容  进行配对,n表示 配对的轮次
+        int count=0;//记录配对轮次
+        while (!Q1.isEmpty()&&!Q2.isEmpty()){
+            //元素分别出队
+            Dancer female =Q1.dequeue();
+            Dancer male=Q2.dequeue();
+            //输出信息
+            System.out.println(female+"    -----------"+male);
+            //元素再次入队
+            // TODO    记得取消注释
+          //  Q1.enqueue(female);
+            //Q2.enqueue(male);
+            count++;
+            if(count==n){
+                break;
+            }
+        }
+    }
+}
+//TODO  记得取消注释
+/*class  textDancing{
+    public static void main(String[] args) {
+        //创建两个队列 用于保存女生男生信息
+        LinkedeQueue链式队列<Dancer> Q1=new LinkedeQueue链式队列<Dancer>();
+        LinkedeQueue链式队列<Dancer>        Q2  = new LinkedeQueue链式队列<Dancer>();
+        //队列初始化
+        for (int i = 1; i <3 ; i++) {
+            Dancer  dancer=new Dancer("lady"+i,"female");
+            Q1.enqueue(dancer);
+        }
+        for (int i=1;i<=5;i++){
+            Dancer dancer =new Dancer("getelement"+i,"male");
+            Q2.enqueue(dancer);
+        }
+        //
+        new DancingPather().match(Q1,Q2,5);
+
+    }
+}*/
