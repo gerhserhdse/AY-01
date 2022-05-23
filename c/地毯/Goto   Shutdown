@@ -1,0 +1,60 @@
+#include<stdio.h>
+int main()
+{
+printf("niaho\n");
+goto error;
+printf("hehe\n");
+error://error放在哪里 就从goto error 那里直接跳到此处,省略了输出hehe这一行,
+//她适用与跳出深层循环;
+printf("agfoi\n");
+return 0;
+}
+
+//例子如下
+
+#include<stdlib.h>
+#include<string.h>
+#include<stdio.h>
+int main()
+{
+char input[20]={0};
+//shutdown -s -t 60 //关机指令 时间在60秒之内
+//system()- 执行系统命令的
+system("shutdown -t -s 60") ;
+again:
+printf("请注意,你的电脑将在60秒内关机,如果输入:我是猪,就取消关机\n请输入>:") ;
+scanf("%s",input);
+if(strcmp(input,"我是猪")==0)
+{
+system("shutdown -a") ;
+
+}
+else
+{
+	goto again;
+}
+return 0;
+}
+
+//****上下两种效果都一样
+
+#include<stdlib.h>
+#include<string.h>
+#include<stdio.h>
+int main()
+{
+char input[20]={0};
+//shutdown -s -t 60 //关机指令 时间在60秒之内
+//system()- 执行系统命令的
+system("shutdown -t -s 60") ;
+while(1)
+{printf("请注意,你的电脑将在60秒内关机,如果输入:我是猪,就取消关机\n请输入>:") ;
+scanf("%s",input);
+if(strcmp(input,"我是猪")==0)
+{
+system("shutdown -a") ;
+break;
+}}
+
+return 0;
+}
