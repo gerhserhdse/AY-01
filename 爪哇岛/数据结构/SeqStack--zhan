@@ -3,62 +3,87 @@ package 栈和队列;
 import java.util.Stack;
 
 //定义栈类
-public class SeqStack<T> extends Stack<T> {
-    private T[] stack = null;//声明一维数组，表示顺序栈
-    private int length;//表示顺序栈的容量
-    private int top;//栈顶指针
-
+  public class seqstack顺序栈<T> extends Stack<T> {
+        private T[] stack=null;//声明一维数组，表示顺序栈
+     private  int length;//表示顺序栈的容量
+     private  int top;//栈顶指针
     //栈初始化
-    public SeqStack() {
-        stack = (T[]) new Object[18];//构造一维的泛型数组，大小为18
-        length = 18;//
-        top = -1;///栈初始化，栈中没有元素
+    public seqstack顺序栈(){
+        stack=(T[]) new Object[18];//构造一维的泛型数组，大小为18
+        length=18;//
+        top=-1;///栈初始化，栈中没有元素
 
     }
-
-    public SeqStack(int size) {
-        stack = (T[]) new Object[size];//构造一维的泛型数组，大小由参数决定
-        length = size;
-        top = -1;//栈初始化，栈中没有元素
-
-    }
-}
-
-//链栈类
-// TODO  为什么不能创建接口imples，只能继承extend
-class Linkeded<T> extends Stack<T> {
-    private LinkedNode链栈<T> top;//代表栈顶指针
-
-    //栈初始化
-    public Linkeded() {
-        top = null;//将栈顶指针top置空，构造一个空链栈
-
-    }
-
+//    public seqstack顺序栈(int  size){
+//        stack =(T[]) new Object[size];//构造一维的泛型数组，大小由参数决定
+//        length =size;
+//        top=-1;//栈初始化，栈中没有元素
+//
+//    }
     //元素入栈
-    //链栈只要内存足够，就不存在栈满情况，所以无需判断栈满
-    //  TODO  为啥不能是void
-   /* public  void  push(T t){
-        //讲新节点指向栈顶，在移动栈顶元素指针指向新节点，新节点成为栈顶元素
-        LinkedNode链栈<T> node=new LinkedNode链栈<T>(t);
-        //使用传递的进栈数值，现构造新结点
-        node.setNext(top);//设置新结点指向栈顶指针
-        top=node;  //设置栈顶指针指向新节点
+    //TODO  元素入栈有问题
+   public T push(T t){
+        //判断是否栈满，若已经满，则抛出异常，若未满，则元素入栈
+        if(top==length-1)
+        {
+            throw  new RuntimeException("栈已经满，元素不能入栈=");
+        }else
+        {
+            stack[++top]=t;//栈顶指针先加一，再讲元素放入栈顶位置
+        }
+        return t;
+    }
+    //元素出栈
+    public  T pop(){
+        //判断栈是否为空，若为空，则抛出异常。，若不空，则元素出栈
+        if(this.isEmpty()){
+            throw new RuntimeException("占为空，无元素出栈");
+        }else
+        {//讲栈顶元素值获取返回，并将栈顶指针减一
+            return  stack[top--];
+        }
 
     }
+    //获取栈顶元素‘
+    public  T peek(){
+        //判断栈是否为空，若为空，抛出异常，若不为空，返回栈顶元素
+        if(this.isEmpty()){
+            throw new RuntimeException("栈为空");
+        }else
+        {
+            return  stack[top];//直接返回栈顶元素
+        }
+    }
+    //判断栈空
+    public boolean isEmpty(){
+        //top为-1 ，表示栈中没有元素。，为=空栈
+        return  top==-1;
+    }
+//打印栈
+    public void print(){
+        for (int i = 0; i <= top; i++) {
+            System.out.print(stack[i]+" ");
+        }
+    }
 
-    
-        //元素出栈
-        public T pop() {
-            //判断链栈是否为空，若为空，抛出异常，若不为空，则取栈顶元素的值并返回，修改栈顶指针指向下一个结点
-            if (this.isEmpty()) {
-                throw new RuntimeException("栈为空，没有元素可出栈");
+}
+class  text{
+    public static void main(String[] args) {
+        System.out.println("元素ruzhan:>");
+      seqstack顺序栈 li=new seqstack顺序栈<>();
+      li.push(34);
+      li.push(43);
+      li.push(45);
+        li.push(13);
+        li.push(75);
+        li.push(23);
+        li.push(95);
 
-            }
-            T topData = top.getData();//获取栈顶元素
-            top = top.getNext();//修改栈顶指针，指向下一个结点
-            return topData;
-            //取栈顶元素
-
-        }*/
+        System.out.println("测试输出栈");
+     li.print();
+        System.out.println("\n测试取栈顶元素");
+     System.out.println(li.peek());
+        System.out.println("测试出栈");
+        System.out.println(li.pop());
+    }
 }
