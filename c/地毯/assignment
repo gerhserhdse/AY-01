@@ -1,0 +1,18 @@
+/**
+*将arr1的字符串赋给arr;
+*/
+#include<stdio.h>
+int main()
+{
+char arr[80],arr1[80];
+int i=0;
+printf("input2:>");
+scanf("%s",&arr1);
+int sz=sizeof(arr1)/sizeof(arr1[0]);
+
+for(;i<sz;i++)
+
+
+    arr[i]=arr1[i];
+  printf("s1:%s\n",arr);
+}
