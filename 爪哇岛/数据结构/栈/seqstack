@@ -1,0 +1,71 @@
+package cn.conm;
+
+import java.util.Stack;
+
+public class Orider_zhan<T>extends Stack<T> {
+    private T[] sta=null;//定义一维数组表示栈
+    private int longth;//表示栈长度
+    private  int tope;//表示栈内元素个数
+    public Orider_zhan(){
+        sta=(T[]) new Object[18];
+        longth=18;
+        tope=-1;  //初始化栈顶元素
+    }
+    //入栈
+    public T push(T t){
+     if (tope==longth-1)
+     {
+         throw new RuntimeException("栈已满,无法入栈");
+     }else{
+         sta[++tope]=t;
+     }
+        return t;
+    }
+    //判断栈是否为空
+    public  boolean empthy(){
+        return tope==-1;
+    }
+
+    //出栈
+    public T peep(){
+        if(this.empthy()){
+            throw new RuntimeException("栈为空,无元素出栈");
+        }else {
+           return sta[tope--];
+        }
+    }
+    //取栈顶元素
+    public T pop(){
+        if(this.empthy()){
+            throw new RuntimeException("栈为空,无元素出栈");
+        }else {
+            return sta[tope];
+        }
+    }
+    //输出站
+public void print(){
+        for (int i=0;i<=tope;i++){
+            System.out.print(sta[i]+" ");
+        }
+}
+
+}
+class textgh{
+    public static void main(String[] args) {
+        System.out.println("测试入栈");
+        Orider_zhan li=new Orider_zhan<>();
+        li.push(34);
+        li.push(14);
+        li.push(24);
+        li.push(54);
+        li.push(74);
+        System.out.println("输出栈");
+        li.print();//34,14 24  54  74
+        System.out.println("测试取栈顶元素");
+        System.out.println(li.pop()); // 74
+        li.print();//34,14 24  54  74
+        System.out.println("测试出栈");
+        System.out.println(li.peep());//74
+        li.print();//34,14 24  54
+    }
+}
