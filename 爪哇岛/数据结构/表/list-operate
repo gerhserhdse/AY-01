@@ -1,0 +1,220 @@
+package 线性表链表;
+
+public class Seqlist<Integer> {
+    private Integer[] data;//对象数组存储顺序表的数据元素
+    private int n;//顺序表数据元素的个数
+    //创建容量为length的空表
+    public Seqlist(int length) {
+        this.data = (Integer[]) new Object[length];//创建长度为length 的数组,元素均为null
+        this.n = 0;//空表的长度为0;
+    }
+    //由values 数组构造顺序表
+    public Seqlist(Integer[] values) {
+        this(values.length);//创建容量为values.length的空表
+        for (int i = 0; i < values.length; i++) {//复制数组元素
+            this.data[i] = values[i];//对象引用赋值
+        }
+        this.n = values.length;//顺序表长度为数组values的长度
+    }
+    //创建默容量为10的空表
+    public Seqlist() {
+        this(10);//构造方法重载,调用本类已声明的指定参数列表的构造方法
+
+    }
+    //返回下标为i的数据元素ai
+    public Integer get(int i) {
+        if (i > 0 && i < this.n) {
+            return this.data[i];
+        } else {
+            throw new IndexOutOfBoundsException(i + " 下标越界");//[抛出下标越界异常
+        }
+
+    }
+
+    //用指定元素t替换列表中的元素ai
+    public void set(int i, Integer t) {
+        if (t == null)
+            throw new NullPointerException("t==null");//抛出空对象异常
+        if (i >= 0 && i < this.n) {
+            this.data[i] = t;
+        } else {
+            throw new IndexOutOfBoundsException(i + "下标越界");
+        }
+    }
+
+    //求表长
+    public int size() {
+        return this.n;//返回顺序表的长度
+    }
+
+    //清空顺序表
+    public void clear() {
+        this.n = 0;
+    }
+
+    //判断表空
+    public boolean isEmpty() {
+        return this.n == 0;
+    }
+
+    //遍历表所有元素
+    public void printlist() {
+        for (int i = 0; i < this.n; i++) {
+            System.out.print(this.data[i]+" ");
+        }
+    }
+
+    //在顺序表中查找首次出现的与key相等的元素，返回元素位置 不存在返回-1
+    public int indexOf(Integer key) {
+        for (int i = 0; i < this.n; i++) {
+            if (key.equals(this.data[i]))
+                return i;
+        }
+        return -1;
+    }
+
+    //判断表是否包含某元素算法
+    public boolean contains(Integer key) {
+        for (int i = 0; i < this.n; i++) {
+            if (key.equals(this.data[i])) {
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+//在顺序表的最后=插入元素t返回t序号
+    public int inse(Integer t){
+        return  this.inse(this.n,t);
+    }
+    //在顺序表的位置i处插入元素t 返回t序号
+  public int  inse(int i ,Integer t){
+        if (t==null)
+            throw new NullPointerException("t==null");
+        if(i>=0&&i<this.n){
+            Integer src[]=this.data;//保存数组
+            if(this.n== data.length){//若数组满，则扩充顺序表的数组容量
+                ///this.data=new Integer [src.length*2];//重新申请一个容量为原来两倍的数组
+                for(int j=0;j<i;j++){
+                    this.data[j]=src[j];}}//赋值当前数组前i各元素
+            for (int j=this.n-1;j>=i;j--) {
+                this.data[j + 1] = src[j];
+            }
+            this.data[i]=t;
+            this.n++;
+            return i;
+        }else
+        {
+            throw new IndexOutOfBoundsException(i+"下标越界");
+        }}
+//在线性表中的第i个元素之前插入一个值为t的数据元素
+/*public void inse(int  i,T t){
+    //.先把i索引的元素及其后面的元素依次向后移动一位
+    for (int j =this.n-1; j >i; j--) {
+       data[i]=data[j-1];
+    }
+    //把t元素放到i索引处
+   data[i]=t;
+}*/
+public Integer remove(int i){
+        if(this.n==0){
+            try{
+                throw  new Exception("空表无法删除");
+            }catch(Exception c){
+    c.printStackTrace();
+            }
+        }
+        if(i>=0&&i<this.n){
+            Integer old=this.data[i];
+            for (int j = i; j <this.n-1 ; j++) {
+                this.data[j]=this.data[j=1];
+            }
+            this.data[this.n-1]=null;
+            this.n--;
+            return old;
+        }else
+        {
+            throw new IndexOutOfBoundsException(i+"下标越界");
+        }
+}
+
+//逆序表逆置
+    public  void reverse(Seqlist list){
+        int t;
+        for(int i=0,j=list.size()-1;i<j;i++,j--){
+            t= (int) list.data[i];
+            list.data[i]=list.data[j];
+            list.data[j]=t;
+        }
+    }
+
+
+}
+class  texagt{
+    public static void main(String[] args) {
+        //创建对象
+      /*  Seqlist<String > s1=new Seqlist<>(10);
+       s1.inse(0,"姚明");
+        s1.inse(1,"别急");
+        s1.inse(2,"展示");
+        s1.inse(3,"李四");
+        //测试获取
+        String getReult=s1.get(2);
+        System.out.println("获取索引1 处的元素的结果为"+getReult);
+        //测试删除
+        String removre= s1.remove(0);
+        System.out.println("删除的元素是"+removre);
+        //测试清空
+        s1.clear();
+
+        System.out.println("清空后的线性表的元素个数为：》"+s1.size());*/
+        //顺序表就地逆置的测试
+     /*   Integer a []={25,30,20,45,60,12,45};
+        Seqlist list=new Seqlist(a);
+        System.out.println("逆止前：》");
+
+        list.printlist();
+        list.reverse(list);
+        System.out.println("\nnizhihou :>");
+        list.printlist();*/
+//合并顺序表AB 的测试
+        Integer a[]={12,36,45,87};
+        Integer b[]={22,43,76,88,99};
+        //通过数组创建listA  listB表
+        Seqlist listA=new Seqlist(a);
+        Seqlist listB=new Seqlist(b);
+//创建一个listC空表
+        Seqlist listC=new Seqlist();
+        Morgelist m1=new Morgelist();
+        m1.merge(listA,listB,listC);//有序顺序表的合并
+        listC.printlist();
+    }
+
+ }
+ class  Morgelist{
+    //有序顺序表的合并
+     public void merge(Seqlist listA, Seqlist listB  , Seqlist listC){
+         int i,j;
+         i=j=0;
+         //将两表中较小的插入c表中
+         while (i<listA.size()&&j<listB.size()){
+             if((int)listA.get(i)<(int)listB.get(j)){
+                 listC.inse(listA.get(i));
+                 i++;
+             }else{
+                 listC.inse(listB.get(j));
+             }
+         }
+         //剩下的是listA表 ，把A表中的东西全插入c表中
+         while (i<listA.size()){
+             listC.inse(listA.get(i));
+             i++;
+         }
+         //剩下的是listB表 ，把B表中的东西全插入c表中
+         while (j<listB.size()){
+             listC.inse(listB.get(j));
+             j++;
+         }
+     }
+ }
