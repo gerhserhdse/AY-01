@@ -1,89 +1,71 @@
-package 栈和队列;
+package cn.conm;
 
 import java.util.Stack;
 
-//定义栈类
-  public class seqstack顺序栈<T> extends Stack<T> {
-        private T[] stack=null;//声明一维数组，表示顺序栈
-     private  int length;//表示顺序栈的容量
-     private  int top;//栈顶指针
-    //栈初始化
-    public seqstack顺序栈(){
-        stack=(T[]) new Object[18];//构造一维的泛型数组，大小为18
-        length=18;//
-        top=-1;///栈初始化，栈中没有元素
-
+public class Orider_zhan<T>extends Stack<T> {
+    private T[] sta=null;//定义一维数组表示栈
+    private int longth;//表示栈长度
+    private  int tope;//表示栈内元素个数
+    public Orider_zhan(){
+        sta=(T[]) new Object[18];
+        longth=18;
+        tope=-1;  //初始化栈顶元素
     }
-//    public seqstack顺序栈(int  size){
-//        stack =(T[]) new Object[size];//构造一维的泛型数组，大小由参数决定
-//        length =size;
-//        top=-1;//栈初始化，栈中没有元素
-//
-//    }
-    //元素入栈
-    //TODO  元素入栈有问题
-   public T push(T t){
-        //判断是否栈满，若已经满，则抛出异常，若未满，则元素入栈
-        if(top==length-1)
-        {
-            throw  new RuntimeException("栈已经满，元素不能入栈=");
-        }else
-        {
-            stack[++top]=t;//栈顶指针先加一，再讲元素放入栈顶位置
-        }
+    //入栈
+    public T push(T t){
+     if (tope==longth-1)
+     {
+         throw new RuntimeException("栈已满,无法入栈");
+     }else{
+         sta[++tope]=t;
+     }
         return t;
     }
-    //元素出栈
-    public  T pop(){
-        //判断栈是否为空，若为空，则抛出异常。，若不空，则元素出栈
-        if(this.isEmpty()){
-            throw new RuntimeException("占为空，无元素出栈");
-        }else
-        {//讲栈顶元素值获取返回，并将栈顶指针减一
-            return  stack[top--];
-        }
+    //判断栈是否为空
+    public  boolean empthy(){
+        return tope==-1;
+    }
 
-    }
-    //获取栈顶元素‘
-    public  T peek(){
-        //判断栈是否为空，若为空，抛出异常，若不为空，返回栈顶元素
-        if(this.isEmpty()){
-            throw new RuntimeException("栈为空");
-        }else
-        {
-            return  stack[top];//直接返回栈顶元素
+    //出栈
+    public T peep(){
+        if(this.empthy()){
+            throw new RuntimeException("栈为空,无元素出栈");
+        }else {
+           return sta[tope--];
         }
     }
-    //判断栈空
-    public boolean isEmpty(){
-        //top为-1 ，表示栈中没有元素。，为=空栈
-        return  top==-1;
-    }
-//打印栈
-    public void print(){
-        for (int i = 0; i <= top; i++) {
-            System.out.print(stack[i]+" ");
+    //取栈顶元素
+    public T pop(){
+        if(this.empthy()){
+            throw new RuntimeException("栈为空,无元素出栈");
+        }else {
+            return sta[tope];
         }
     }
+    //输出站
+public void print(){
+        for (int i=0;i<=tope;i++){
+            System.out.print(sta[i]+" ");
+        }
+}
 
 }
-class  text{
+class textgh{
     public static void main(String[] args) {
-        System.out.println("元素ruzhan:>");
-      seqstack顺序栈 li=new seqstack顺序栈<>();
-      li.push(34);
-      li.push(43);
-      li.push(45);
-        li.push(13);
-        li.push(75);
-        li.push(23);
-        li.push(95);
-
-        System.out.println("测试输出栈");
-     li.print();
-        System.out.println("\n测试取栈顶元素");
-     System.out.println(li.peek());
+        System.out.println("测试入栈");
+        Orider_zhan li=new Orider_zhan<>();
+        li.push(34);
+        li.push(14);
+        li.push(24);
+        li.push(54);
+        li.push(74);
+        System.out.println("输出栈");
+        li.print();//34,14 24  54  74
+        System.out.println("测试取栈顶元素");
+        System.out.println(li.pop()); // 74
+        li.print();//34,14 24  54  74
         System.out.println("测试出栈");
-        System.out.println(li.pop());
+        System.out.println(li.peep());//74
+        li.print();//34,14 24  54
     }
 }
